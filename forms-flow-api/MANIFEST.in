@@ -1,4 +1,0 @@
-include requirements.txt
-include src/*/logging.conf
-include LICENSE
-include README.md
