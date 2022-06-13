@@ -9,6 +9,7 @@ from flask_restx import Api
 from formsflow_api.exceptions import BusinessException
 
 from formsflow_api.resources.checkpoint import API as CHECKPOINT_API
+from formsflow_api.resources.submissions import API as SUBMISSION_API
 
 
 
@@ -32,7 +33,7 @@ def handle_business_exception(error: BusinessException):
     return (
         {"message": error.error},
         error.status_code,
-        {"Access-Control-Allow-Origin": ALLOW_ALL_ORIGINS},
+        {"Access-Control-Allow-Origin": "*"},
     )
 
 
@@ -46,8 +47,9 @@ def handle_auth_error(error: AuthError):
             "bearer token is passed for Authorization or has expired.",
         },
         error.status_code,
-        {"Access-Control-Allow-Origin": ALLOW_ALL_ORIGINS},
+        {"Access-Control-Allow-Origin": "*"},
     )
 
 API.add_namespace(CHECKPOINT_API, path="/checkpoint")
+API.add_namespace(SUBMISSION_API, path="/submission")
 

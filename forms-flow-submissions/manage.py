@@ -19,4 +19,4 @@ MANAGER.add_command('db', MigrateCommand)
 
 if __name__ == '__main__':
     logging.log(logging.INFO, 'Running the Manager')
-    APP.run()
+    MANAGER.run()
