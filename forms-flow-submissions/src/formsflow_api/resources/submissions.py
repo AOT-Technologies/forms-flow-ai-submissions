@@ -51,3 +51,32 @@ class SubmissionResource(Resource):
             current_app.logger.warning(submission_err)
             return response, status
 
+@cors_preflight("GET,PUT,DELETE,OPTIONS")
+@API.route("/<str:id>", methods=["GET", "PUT", "DELETE", "OPTIONS"])
+class SubmissionResourceById(Resource):
+    """Resource for managing submission by id."""
+
+    @staticmethod
+    @auth.require
+    @profiletime
+    def put(id:str):
+        """Update submission details"""
+        submission_json = request.get_json()
+        try:
+            submission_schema = SubmissionSchema()
+            dict_data = submission_schema.load(submission_json)
+            submission = SubmissionService.update_submission(
+                id=id, data=dict_data
+            )
+            response = submission_schema.dump(submission)
+            return "Updated successfully", HTTPStatus.OK
+        except BaseException as submission_err:  # pylint: disable=broad-except
+            response, status = {
+                "type": "Bad request error",
+                "message": "Invalid request data",
+            }, HTTPStatus.BAD_REQUEST
+
+            current_app.logger.warning(response)
+            current_app.logger.warning(submission_err)
+
+            return response, status
