@@ -46,11 +46,17 @@ def create_app(run_mode=os.getenv("FLASK_ENV", "production")):
     app.logger.handlers = [logs]
     app.logger.propagate = False
     logging.log.propagate = False
+    with open("logo.txt") as file:  # pylint: disable=unspecified-encoding
+        contents = file.read()
+        print(contents)
+    app.logger.info("Welcome to formsflow-API server...!")
     db.init_app(app)
     ma.init_app(app)
-
+    logging.info("Initializing the application")
     API.init_app(app)
+    logging.info( "setting up jwt manager")
     setup_jwt_manager(app, jwt)
+    logging.info( "setting up jwt manager completed")
 
     @app.after_request
     def cors_origin(response):  # pylint: disable=unused-variable
@@ -98,7 +104,7 @@ def create_app(run_mode=os.getenv("FLASK_ENV", "production")):
             return response
 
     register_shellcontext(app)
-
+    logging.info("Returning the application")
     return app
 
 
