@@ -59,7 +59,7 @@ class SubmissionResourceById(Resource):
     @staticmethod
     @auth.require
     @profiletime
-    def put(id:str):
+    def put(id:int):
         """Update submission details"""
         submission_json = request.get_json()
         try:
@@ -68,8 +68,11 @@ class SubmissionResourceById(Resource):
             submission = SubmissionService.update_submission(
                 id=id, data=dict_data
             )
+            submission.data = json.loads(submission.data)
             response = submission_schema.dump(submission)
-            return "Updated successfully", HTTPStatus.OK
+            return (
+                response, HTTPStatus.OK
+            )
         except BaseException as submission_err:  # pylint: disable=broad-except
             response, status = {
                 "type": "Bad request error",

@@ -9,5 +9,5 @@ class SubmissionSchema(Schema):
 
         unknown = EXCLUDE
 
-    id = fields.Str(data_key="id")
+    id = fields.Int(data_key="id")
     data = fields.Dict(data_key="data", required=True)

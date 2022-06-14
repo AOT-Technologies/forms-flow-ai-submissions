@@ -25,3 +25,15 @@ class Submission(BaseModel, db.Model):
             submission.save()
             return submission
         return None
+    
+
+    def update(self, submission_info: dict):
+        """Update submission."""
+        self.update_from_dict(
+            [
+                "data",
+            ],
+            submission_info,
+        )
+        self.commit()
+
