@@ -52,7 +52,7 @@ class SubmissionResource(Resource):
             return response, status
 
 @cors_preflight("GET,PUT,DELETE,OPTIONS")
-@API.route("/<str:id>", methods=["GET", "PUT", "DELETE", "OPTIONS"])
+@API.route("/<int:id>", methods=["GET", "PUT", "DELETE", "OPTIONS"])
 class SubmissionResourceById(Resource):
     """Resource for managing submission by id."""
 
@@ -65,13 +65,12 @@ class SubmissionResourceById(Resource):
         try:
             submission_schema = SubmissionSchema()
             dict_data = submission_schema.load(submission_json)
-            submission = SubmissionService.update_submission(
+            SubmissionService.update_submission(
                 id=id, data=dict_data
             )
-            submission.data = json.loads(submission.data)
-            response = submission_schema.dump(submission)
             return (
-                response, HTTPStatus.OK
+                f"Updated {id} successfully",
+                HTTPStatus.OK,
             )
         except BaseException as submission_err:  # pylint: disable=broad-except
             response, status = {

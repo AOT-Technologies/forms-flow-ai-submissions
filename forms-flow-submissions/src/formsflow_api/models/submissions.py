@@ -37,3 +37,9 @@ class Submission(BaseModel, db.Model):
         )
         self.commit()
 
+    @classmethod
+    def find_by_id(cls, id: int) -> Submission:
+        """Find submission that matches the provided id."""
+        return cls.query.filter_by(id=id).first()
+    
+
