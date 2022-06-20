@@ -28,19 +28,12 @@ class SubmissionResource(Resource):
     @auth.require
     @profiletime
     def get():
-
         try:
             print("resource")
-            # submission_schema = SubmissionSchema()
             submission = SubmissionService.get_all_submission()
             print("hi", submission)
-            # submission.data = json.loads(submission.data)
-            # response = submission_schema.dump(submission, many=True)
-            # print("response", response)
             return (
-                (
-                    submission   
-                ),HTTPStatus.OK
+                submission,HTTPStatus.OK
             )
 
         except BaseException as submission_err:  # pylint: disable=broad-except
@@ -66,7 +59,7 @@ class SubmissionResource(Resource):
             submission = SubmissionService.create_submission(
                 data=dict_data
             )
-            submission.data = json.loads(submission.data)
+            # submission.data = json.loads(submission.data)
             response = submission_schema.dump(submission)
             return (
                 response,HTTPStatus.CREATED

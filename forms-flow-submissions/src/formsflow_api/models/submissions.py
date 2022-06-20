@@ -21,7 +21,7 @@ class Submission(BaseModel, db.Model):
         """Create new application."""
         if submission_info:
             submission = Submission()
-            submission.data = json.dumps(submission_info["data"])
+            submission.data = submission_info["data"]
             submission.save()
             return submission
         return None
@@ -46,7 +46,6 @@ class Submission(BaseModel, db.Model):
     @classmethod
     def find_all(cls):
         """Fetch all submission."""
-        print("model")
         return cls.query.order_by(Submission.id.desc()).all()
     
     

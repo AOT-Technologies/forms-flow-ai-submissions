@@ -1,7 +1,7 @@
 """This exposes submission service."""
 
 from http import HTTPStatus
-from flask import jsonify
+import json
 from formsflow_api.exceptions import BusinessException
 from formsflow_api.models import Submission
 from formsflow_api.schemas import SubmissionSchema
@@ -39,11 +39,10 @@ class SubmissionService:
         """Get all submissions."""
         print("serviecs")
         submission = Submission.find_all()
-        print("submission", type(submission))
+        print(type(submission))
         submission_schema = SubmissionSchema()
-        for i in submission:
-            print (i.data, type(i), i.id, "data")
-            response = submission_schema.dump(submission)
-            print(response, "response")
-        return jsonify(response)
+        # submission.data = json.loads(submission.data)
+        return submission_schema.dump(submission, many=True)
+        
+        
 
