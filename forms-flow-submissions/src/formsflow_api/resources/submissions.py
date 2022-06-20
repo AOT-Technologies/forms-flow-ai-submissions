@@ -19,10 +19,40 @@ from formsflow_api.utils import (
 
 API = Namespace("Submission", description="Submission")
 
-@cors_preflight("POST,OPTIONS")
-@API.route("", methods=["POST", "OPTIONS"])
+@cors_preflight("POST, GET, OPTIONS")
+@API.route("", methods=["POST", "GET", "OPTIONS"])
 class SubmissionResource(Resource):
     """Resource for submission creation."""
+
+    @staticmethod
+    @auth.require
+    @profiletime
+    def get():
+
+        try:
+            print("resource")
+            # submission_schema = SubmissionSchema()
+            submission = SubmissionService.get_all_submission()
+            print("hi", submission)
+            # submission.data = json.loads(submission.data)
+            # response = submission_schema.dump(submission, many=True)
+            # print("response", response)
+            return (
+                (
+                    submission   
+                ),HTTPStatus.OK
+            )
+
+        except BaseException as submission_err:  # pylint: disable=broad-except
+            response, status = {
+                "type": "Bad request error",
+                "message": "Invalid submission request passed",
+            }, HTTPStatus.BAD_REQUEST
+            current_app.logger.warning(response)
+            current_app.logger.warning(submission_err)
+            return response, status
+
+
 
     @staticmethod
     @auth.require
@@ -55,6 +85,26 @@ class SubmissionResource(Resource):
 @API.route("/<int:id>", methods=["GET", "PUT", "DELETE", "OPTIONS"])
 class SubmissionResourceById(Resource):
     """Resource for managing submission by id."""
+
+    @staticmethod
+    @auth.require
+    @profiletime
+    def get(id: int):
+        """Get submission by id."""
+        try:
+            return SubmissionService.get_submission(id), HTTPStatus.OK
+        except BusinessException:
+            response, status = (
+                {
+                    "type": "Invalid response data",
+                    "message": f"Invalid id - {id}",
+                },
+                HTTPStatus.BAD_REQUEST,
+            )
+
+            current_app.logger.warning(response)
+            return response, status
+
 
     @staticmethod
     @auth.require
