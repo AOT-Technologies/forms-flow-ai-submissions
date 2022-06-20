@@ -47,6 +47,3 @@ class Submission(BaseModel, db.Model):
     def find_all(cls):
         """Fetch all submission."""
         return cls.query.order_by(Submission.id.desc()).all()
-    
-    
-

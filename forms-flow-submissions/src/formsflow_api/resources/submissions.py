@@ -22,16 +22,14 @@ API = Namespace("Submission", description="Submission")
 @cors_preflight("POST, GET, OPTIONS")
 @API.route("", methods=["POST", "GET", "OPTIONS"])
 class SubmissionResource(Resource):
-    """Resource for submission creation."""
+    """Resource for getting all submissions."""
 
     @staticmethod
     @auth.require
     @profiletime
     def get():
         try:
-            print("resource")
             submission = SubmissionService.get_all_submission()
-            print("hi", submission)
             return (
                 submission,HTTPStatus.OK
             )
@@ -52,14 +50,12 @@ class SubmissionResource(Resource):
     @profiletime
     def post():
         submission_json = request.get_json()
-
         try:
             submission_schema = SubmissionSchema()
             dict_data = submission_schema.load(submission_json)
             submission = SubmissionService.create_submission(
                 data=dict_data
             )
-            # submission.data = json.loads(submission.data)
             response = submission_schema.dump(submission)
             return (
                 response,HTTPStatus.CREATED
@@ -74,8 +70,8 @@ class SubmissionResource(Resource):
             current_app.logger.warning(submission_err)
             return response, status
 
-@cors_preflight("GET,PUT,DELETE,OPTIONS")
-@API.route("/<int:id>", methods=["GET", "PUT", "DELETE", "OPTIONS"])
+@cors_preflight("GET,PUT,OPTIONS")
+@API.route("/<int:id>", methods=["GET", "PUT", "OPTIONS"])
 class SubmissionResourceById(Resource):
     """Resource for managing submission by id."""
 

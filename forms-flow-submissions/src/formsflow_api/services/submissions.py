@@ -37,12 +37,6 @@ class SubmissionService:
     @staticmethod
     def get_all_submission():
         """Get all submissions."""
-        print("serviecs")
         submission = Submission.find_all()
-        print(type(submission))
         submission_schema = SubmissionSchema()
-        # submission.data = json.loads(submission.data)
         return submission_schema.dump(submission, many=True)
-        
-        
-
