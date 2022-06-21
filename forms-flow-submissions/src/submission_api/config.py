@@ -15,10 +15,10 @@ from dotenv import find_dotenv, load_dotenv
 load_dotenv(find_dotenv())
 
 CONFIGURATION = {
-    "development": "formsflow_api.config.DevConfig",
-    "testing": "formsflow_api.config.TestConfig",
-    "production": "formsflow_api.config.ProdConfig",
-    "default": "formsflow_api.config.ProdConfig",
+    "development": "submission_api.config.DevConfig",
+    "testing": "submission_api.config.TestConfig",
+    "production": "submission_api.config.ProdConfig",
+    "default": "submission_api.config.ProdConfig",
 }
 
 
@@ -77,7 +77,7 @@ class _Config:  # pylint: disable=too-few-public-methods
     BPM_API_BASE = os.getenv("BPM_API_BASE")
 
     # API Base URL (Self)
-    FORMSFLOW_API_URL = os.getenv("WEB_API_BASE_URL")
+    submission_api_URL = os.getenv("WEB_API_BASE_URL")
     # Analytics API End points
     ANALYTICS_API_URL = os.getenv("INSIGHT_API_URL")
     ANALYTICS_API_KEY = os.getenv("INSIGHT_API_KEY")
@@ -100,7 +100,7 @@ class TestConfig(_Config):  # pylint: disable=too-few-public-methods
     DEBUG = True
     TESTING = True
 
-    FORMSFLOW_API_URL = os.getenv("WEB_API_BASE_URL")
+    submission_api_URL = os.getenv("WEB_API_BASE_URL")
     # POSTGRESQL
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL_TEST")
 

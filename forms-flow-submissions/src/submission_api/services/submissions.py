@@ -2,9 +2,9 @@
 
 from http import HTTPStatus
 import json
-from formsflow_api.exceptions import BusinessException
-from formsflow_api.models import Submission
-from formsflow_api.schemas import SubmissionSchema
+from submission_api.exceptions import BusinessException
+from submission_api.models import Submission
+from submission_api.schemas import SubmissionSchema
 
 
 class SubmissionService:

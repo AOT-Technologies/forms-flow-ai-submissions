@@ -11,10 +11,10 @@ from flask import Flask, current_app, g, request
 from flask.logging import default_handler
 from werkzeug.middleware.proxy_fix import ProxyFix
 
-from formsflow_api import config, models
-from formsflow_api.models import db, ma
-from formsflow_api.resources import API
-from formsflow_api.utils import (
+from submission_api import config, models
+from submission_api.models import db, ma
+from submission_api.resources import API
+from submission_api.utils import (
     ALLOW_ALL_ORIGINS,
     CORS_ORIGINS,
     FORMSFLOW_API_CORS_ORIGINS,

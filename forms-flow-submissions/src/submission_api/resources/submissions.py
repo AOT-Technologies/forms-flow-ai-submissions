@@ -5,12 +5,12 @@ import json
 from flask import current_app, g, request
 from flask_restx import Namespace, Resource
 
-from formsflow_api.exceptions import BusinessException
-from formsflow_api.schemas import (
+from submission_api.exceptions import BusinessException
+from submission_api.schemas import (
     SubmissionSchema
 )
-from formsflow_api.services import SubmissionService
-from formsflow_api.utils import (
+from submission_api.services import SubmissionService
+from submission_api.utils import (
     REVIEWER_GROUP,
     auth,
     cors_preflight,

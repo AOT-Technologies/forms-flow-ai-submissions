@@ -6,10 +6,10 @@ Uses restx namespaces to mount individual api endpoints into the service.
 from flask_jwt_oidc import AuthError
 from flask_restx import Api
 
-from formsflow_api.exceptions import BusinessException
+from submission_api.exceptions import BusinessException
 
-from formsflow_api.resources.checkpoint import API as CHECKPOINT_API
-from formsflow_api.resources.submissions import API as SUBMISSION_API
+from submission_api.resources.checkpoint import API as CHECKPOINT_API
+from submission_api.resources.submissions import API as SUBMISSION_API
 
 
 

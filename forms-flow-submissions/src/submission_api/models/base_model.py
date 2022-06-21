@@ -4,7 +4,7 @@ from typing import Any
 
 from flask import current_app
 
-from formsflow_api.models.db import db
+from submission_api.models.db import db
 
 
 class BaseModel:

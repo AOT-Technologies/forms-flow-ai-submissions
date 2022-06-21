@@ -2,7 +2,7 @@
 
 import datetime
 
-from formsflow_api.models.db import db
+from submission_api.models.db import db
 
 
 class AuditDateTimeMixin:  # pylint: disable=too-few-public-methods

@@ -1,6 +1,6 @@
 """Provides the WSGI entry point for running the application."""
 
-from formsflow_api import create_app
+from submission_api import create_app
 import logging
 
 application = create_app()  # pylint: disable=invalid-name
