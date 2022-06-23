@@ -17,7 +17,7 @@ from submission_api.resources import API
 from submission_api.utils import (
     ALLOW_ALL_ORIGINS,
     CORS_ORIGINS,
-    FORMSFLOW_API_CORS_ORIGINS,
+    SUBMISSION_API_CORS_ORIGINS,
     CustomFormatter,
     jwt,
     setup_logging,
@@ -60,7 +60,7 @@ def create_app(run_mode=os.getenv("FLASK_ENV", "production")):
 
     @app.after_request
     def cors_origin(response):  # pylint: disable=unused-variable
-        if FORMSFLOW_API_CORS_ORIGINS == ALLOW_ALL_ORIGINS:
+        if SUBMISSION_API_CORS_ORIGINS == ALLOW_ALL_ORIGINS:
             response.headers["Access-Control-Allow-Origin"] = ALLOW_ALL_ORIGINS
         else:
             for url in CORS_ORIGINS:
