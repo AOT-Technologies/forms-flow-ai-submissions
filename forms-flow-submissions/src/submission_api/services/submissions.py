@@ -15,18 +15,18 @@ class SubmissionService:
         return Submission.create_from_dict(data)
 
     @staticmethod
-    def update_submission(id: int, data):
+    def update_submission(_id: str, data):
         """Update submission."""
-        submission = Submission.find_by_id(id=id)
+        submission = Submission.find_by_id(_id=_id)
         if submission:
             submission.update(data)
         else:
             raise BusinessException("Invalid submission", HTTPStatus.BAD_REQUEST)
 
     @staticmethod
-    def get_submission(id: int):
+    def get_submission(_id: str):
         """Get submission."""
-        submission = Submission.find_by_id(id=id)
+        submission = Submission.find_by_id(_id=_id)
         if submission:
            submission_schema = SubmissionSchema()
            return submission_schema.dump(submission)

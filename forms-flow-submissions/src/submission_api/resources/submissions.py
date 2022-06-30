@@ -71,22 +71,22 @@ class SubmissionResource(Resource):
             return response, status
 
 @cors_preflight("GET,PUT,OPTIONS")
-@API.route("/<int:id>", methods=["GET", "PUT", "OPTIONS"])
+@API.route("/<string:_id>", methods=["GET", "PUT", "OPTIONS"])
 class SubmissionResourceById(Resource):
     """Resource for managing submission by id."""
 
     @staticmethod
     @auth.require
     @profiletime
-    def get(id: int):
+    def get(_id: str):
         """Get submission by id."""
         try:
-            return SubmissionService.get_submission(id), HTTPStatus.OK
+            return SubmissionService.get_submission(_id), HTTPStatus.OK
         except BusinessException:
             response, status = (
                 {
                     "type": "Invalid response data",
-                    "message": f"Invalid id - {id}",
+                    "message": f"Invalid id - {_id}",
                 },
                 HTTPStatus.BAD_REQUEST,
             )
@@ -98,17 +98,17 @@ class SubmissionResourceById(Resource):
     @staticmethod
     @auth.require
     @profiletime
-    def put(id:int):
+    def put(_id:str):
         """Update submission details"""
         submission_json = request.get_json()
         try:
             submission_schema = SubmissionSchema()
             dict_data = submission_schema.load(submission_json)
             SubmissionService.update_submission(
-                id=id, data=dict_data
+                _id=_id, data=dict_data
             )
             return (
-                f"Updated {id} successfully",
+                f"Updated {_id} successfully",
                 HTTPStatus.OK,
             )
         except BaseException as submission_err:  # pylint: disable=broad-except

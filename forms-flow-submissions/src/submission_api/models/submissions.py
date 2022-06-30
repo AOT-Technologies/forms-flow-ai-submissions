@@ -7,13 +7,15 @@ import json
 from .audit_mixin import AuditDateTimeMixin, AuditUserMixin
 from .base_model import BaseModel
 from .db import db
-from sqlalchemy.dialects.postgresql import JSON
+from sqlalchemy.dialects.postgresql import JSON, UUID
+import uuid
 
 class Submission(BaseModel, db.Model):
     """This class manages submission information."""
 
     __tablename__ = "submission"
     id = db.Column(db.Integer, primary_key=True)
+    _id =db.Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, nullable=False)
     data = db.Column(JSON, nullable=False)
 
     @classmethod
@@ -38,9 +40,9 @@ class Submission(BaseModel, db.Model):
         self.commit()
 
     @classmethod
-    def find_by_id(cls, id: int) -> Submission:
+    def find_by_id(cls, _id: str) -> Submission:
         """Find submission that matches the provided id."""
-        return cls.query.filter_by(id=id).first()
+        return cls.query.filter_by(_id=_id).first()
 
 
     @classmethod
