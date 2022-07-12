@@ -11,3 +11,6 @@ class SubmissionSchema(Schema):
 
     _id = fields.Str(data_key="_id")
     data = fields.Dict(data_key="data", required=True)
+    form_id = fields.Str(data_key="form")
+    created = fields.Str()
+    modified = fields.Str()

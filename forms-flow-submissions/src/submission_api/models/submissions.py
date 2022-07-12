@@ -10,13 +10,14 @@ from .db import db
 from sqlalchemy.dialects.postgresql import JSON, UUID
 import uuid
 
-class Submission(BaseModel, db.Model):
+class Submission(BaseModel, db.Model, AuditDateTimeMixin):
     """This class manages submission information."""
 
     __tablename__ = "submission"
     id = db.Column(db.Integer, primary_key=True)
     _id =db.Column(UUID(as_uuid=True), unique=True, default=uuid.uuid4, nullable=False)
     data = db.Column(JSON, nullable=False)
+    form_id = db.Column(db.String(100), nullable=False)
 
     @classmethod
     def create_from_dict(cls, submission_info: dict) -> Submission:
@@ -24,6 +25,7 @@ class Submission(BaseModel, db.Model):
         if submission_info:
             submission = Submission()
             submission.data = submission_info["data"]
+            submission.form_id = submission_info["form_id"]
             submission.save()
             return submission
         return None

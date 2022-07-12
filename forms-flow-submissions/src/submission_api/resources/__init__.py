@@ -51,5 +51,5 @@ def handle_auth_error(error: AuthError):
     )
 
 API.add_namespace(CHECKPOINT_API, path="/checkpoint")
-API.add_namespace(SUBMISSION_API, path="/submission")
+API.add_namespace(SUBMISSION_API, path="/")
 
