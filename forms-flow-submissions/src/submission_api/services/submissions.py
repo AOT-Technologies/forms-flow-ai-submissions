@@ -15,18 +15,18 @@ class SubmissionService:
         return Submission.create_from_dict(data)
 
     @staticmethod
-    def update_submission(_id: str, data):
+    def update_submission(form_id: str, _id: str, data):
         """Update submission."""
-        submission = Submission.find_by_id(_id=_id)
+        submission = Submission.find_by_id(form_id=form_id, _id=_id)
         if submission:
             submission.update(data)
         else:
             raise BusinessException("Invalid submission", HTTPStatus.BAD_REQUEST)
 
     @staticmethod
-    def patch_submission(_id: str, data):
+    def patch_submission(form_id:str, _id: str, data):
         """Update submission."""
-        submission = Submission.find_by_id(_id=_id)
+        submission = Submission.find_by_id(form_id=form_id, _id=_id)
         sub_data = submission.data
         sub_data.update(data["data"])
         data["data"] = sub_data

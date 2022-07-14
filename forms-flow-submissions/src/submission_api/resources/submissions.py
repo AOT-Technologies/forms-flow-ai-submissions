@@ -107,7 +107,7 @@ class SubmissionResourceById(Resource):
             submission_schema = SubmissionSchema()
             dict_data = submission_schema.load(submission_json)
             SubmissionService.update_submission(
-                _id=_id, data=dict_data
+                form_id=formId, _id=_id, data=dict_data
             )
             return (
                 f"Updated {_id} successfully",
@@ -134,7 +134,7 @@ class SubmissionResourceById(Resource):
             submission_schema = SubmissionSchema()
             dict_data = submission_schema.load(submission_json)
             SubmissionService.patch_submission(
-                _id=_id, data=dict_data
+                form_id=formId, _id=_id, data=dict_data
             )
             return (
                 f"Updated {_id} successfully",
