@@ -30,7 +30,7 @@ class SubmissionResource(Resource):
     @profiletime
     def get(formId: string):
         try:
-            submission = SubmissionService.get_all_submission()
+            submission = SubmissionService.get_all_submission(form_id=formId)
             return (
                 submission,HTTPStatus.OK
             )
@@ -83,7 +83,7 @@ class SubmissionResourceById(Resource):
     def get(formId: string, _id: str):
         """Get submission by id."""
         try:
-            return SubmissionService.get_submission(_id), HTTPStatus.OK
+            return SubmissionService.get_submission(form_id=formId, _id=_id), HTTPStatus.OK
         except BusinessException:
             response, status = (
                 {
@@ -133,7 +133,7 @@ class SubmissionResourceById(Resource):
         try:
             submission_schema = SubmissionSchema()
             dict_data = submission_schema.load(submission_json)
-            SubmissionService.update_submission(
+            SubmissionService.patch_submission(
                 _id=_id, data=dict_data
             )
             return (

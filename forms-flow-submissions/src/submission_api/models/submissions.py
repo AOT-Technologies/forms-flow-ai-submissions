@@ -42,12 +42,20 @@ class Submission(BaseModel, db.Model, AuditDateTimeMixin):
         self.commit()
 
     @classmethod
-    def find_by_id(cls, _id: str) -> Submission:
+    def find_by_id(cls,form_id:str, _id: str) -> Submission:
         """Find submission that matches the provided id."""
-        return cls.query.filter_by(_id=_id).first()
+        result = (
+            cls.query.filter(Submission.form_id ==form_id)
+            .filter_by(_id=_id).first()
+        )
+        return result
 
 
     @classmethod
-    def find_all(cls):
+    def find_all(cls, form_id:str):
         """Fetch all submission."""
-        return cls.query.order_by(Submission.id.desc()).all()
+        result = (
+            cls.query.filter(Submission.form_id == form_id)
+            .order_by(Submission.id.desc())   
+        )
+        return result  
