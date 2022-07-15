@@ -7,6 +7,16 @@ from submission_api.models import Submission
 from submission_api.schemas import SubmissionSchema
 
 
+def update(dict1, dict2):
+    """This function update dictionary of dictionaries"""
+    for key, val in dict2.items():
+        if isinstance(val, dict):
+            dict1[key] = update(dict1.get(key, {}), val)
+        else:
+            dict1[key] = val
+    return dict1
+
+
 class SubmissionService:
     """This class manages submission service."""
     @staticmethod
@@ -20,6 +30,18 @@ class SubmissionService:
         submission = Submission.find_by_id(_id=_id)
         if submission:
             submission.update(data)
+        else:
+            raise BusinessException("Invalid submission", HTTPStatus.BAD_REQUEST)
+
+    
+    @staticmethod
+    def patch_submission(_id: str, data):
+        """Update submission."""
+        submission = Submission.find_by_id(_id=_id)
+        result = update(submission.data, data["data"])
+        
+        if submission:
+            submission = submission.patch(data=result)
         else:
             raise BusinessException("Invalid submission", HTTPStatus.BAD_REQUEST)
 

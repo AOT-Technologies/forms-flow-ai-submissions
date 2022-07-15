@@ -133,7 +133,7 @@ class SubmissionResourceById(Resource):
         try:
             submission_schema = SubmissionSchema()
             dict_data = submission_schema.load(submission_json)
-            SubmissionService.update_submission(
+            SubmissionService.patch_submission(
                 _id=_id, data=dict_data
             )
             return (

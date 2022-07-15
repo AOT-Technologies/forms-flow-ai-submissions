@@ -4,6 +4,7 @@
 from __future__ import annotations
 from email.policy import default
 import json
+from sqlalchemy.orm.attributes import flag_modified
 from .audit_mixin import AuditDateTimeMixin, AuditUserMixin
 from .base_model import BaseModel
 from .db import db
@@ -46,6 +47,11 @@ class Submission(BaseModel, db.Model, AuditDateTimeMixin):
         """Find submission that matches the provided id."""
         return cls.query.filter_by(_id=_id).first()
 
+    def patch(self, data: dict):
+        """Patch submission."""
+        self.data = data
+        flag_modified(self, "data")
+        self.commit()
 
     @classmethod
     def find_all(cls):
