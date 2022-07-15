@@ -25,9 +25,9 @@ class SubmissionService:
         return Submission.create_from_dict(data)
 
     @staticmethod
-    def update_submission(_id: str, data):
+    def update_submission(form_id: str, _id: str, data):
         """Update submission."""
-        submission = Submission.find_by_id(_id=_id)
+        submission = Submission.find_by_id(form_id=form_id, _id=_id)
         if submission:
             submission.update(data)
         else:
@@ -35,9 +35,9 @@ class SubmissionService:
 
     
     @staticmethod
-    def patch_submission(_id: str, data):
+    def patch_submission(form_id:str, _id: str, data):
         """Update submission."""
-        submission = Submission.find_by_id(_id=_id)
+        submission = Submission.find_by_id(form_id=form_id, _id=_id)
         result = update(submission.data, data["data"])
         
         if submission:
@@ -45,10 +45,11 @@ class SubmissionService:
         else:
             raise BusinessException("Invalid submission", HTTPStatus.BAD_REQUEST)
 
+
     @staticmethod
-    def get_submission(_id: str):
+    def get_submission(form_id:str, _id: str):
         """Get submission."""
-        submission = Submission.find_by_id(_id=_id)
+        submission = Submission.find_by_id(form_id=form_id, _id=_id)
         if submission:
            submission_schema = SubmissionSchema()
            return submission_schema.dump(submission)
@@ -57,8 +58,8 @@ class SubmissionService:
 
 
     @staticmethod
-    def get_all_submission():
+    def get_all_submission(form_id:str):
         """Get all submissions."""
-        submission = Submission.find_all()
+        submission = Submission.find_all(form_id=form_id)
         submission_schema = SubmissionSchema()
         return submission_schema.dump(submission, many=True)
