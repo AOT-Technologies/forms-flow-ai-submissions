@@ -67,21 +67,6 @@ class _Config:  # pylint: disable=too-few-public-methods
     JWT_OIDC_CACHING_ENABLED = os.getenv("JWT_OIDC_CACHING_ENABLED")
     JWT_OIDC_JWKS_CACHE_TIMEOUT = 300
 
-    # Keycloak Service for BPM Camunda
-    BPM_TOKEN_API = os.getenv("BPM_TOKEN_API")
-    BPM_CLIENT_ID = os.getenv("BPM_CLIENT_ID")
-    BPM_CLIENT_SECRET = os.getenv("BPM_CLIENT_SECRET")
-    BPM_GRANT_TYPE = os.getenv("BPM_GRANT_TYPE", "client_credentials")
-
-    # BPM Camunda Details
-    BPM_API_BASE = os.getenv("BPM_API_BASE")
-
-    # API Base URL (Self)
-    submission_api_URL = os.getenv("WEB_API_BASE_URL")
-    # Analytics API End points
-    ANALYTICS_API_URL = os.getenv("INSIGHT_API_URL")
-    ANALYTICS_API_KEY = os.getenv("INSIGHT_API_KEY")
-
     # Keycloak Admin Service
     KEYCLOAK_URL = os.getenv("KEYCLOAK_URL")
     KEYCLOAK_URL_REALM = os.getenv("KEYCLOAK_URL_REALM")
@@ -100,7 +85,6 @@ class TestConfig(_Config):  # pylint: disable=too-few-public-methods
     DEBUG = True
     TESTING = True
 
-    submission_api_URL = os.getenv("WEB_API_BASE_URL")
     # POSTGRESQL
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL_TEST")
 
