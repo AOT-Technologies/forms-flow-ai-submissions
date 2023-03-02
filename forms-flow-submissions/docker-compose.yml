@@ -27,7 +27,7 @@ services:
     volumes:
       - ./:/app:rw
     environment:
-      DATABASE_URL: ${SUBMISSION_API_DB_URL:-postgresql://postgres:changeme@forms-flow-submission-db:5432/submissionapi}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:changeme@forms-flow-submission-db:5432/submissionapi}
       SUBMISSION_API_CORS_ORIGINS: ${SUBMISSION_API_CORS_ORIGINS:-*}
       JWT_OIDC_WELL_KNOWN_CONFIG: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_URL_REALM:-forms-flow-ai}/.well-known/openid-configuration
       JWT_OIDC_JWKS_URI: ${KEYCLOAK_URL}/auth/realms/${KEYCLOAK_URL_REALM:-forms-flow-ai}/protocol/openid-connect/certs
