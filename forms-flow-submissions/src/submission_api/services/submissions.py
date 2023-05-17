@@ -30,6 +30,8 @@ class SubmissionService:
         submission = Submission.find_by_id(form_id=form_id, _id=_id)
         if submission:
             submission.update(data)
+            submission_schema = SubmissionSchema()
+            return submission_schema.dump(submission)
         else:
             raise BusinessException("Invalid submission", HTTPStatus.BAD_REQUEST)
 

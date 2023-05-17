@@ -106,11 +106,11 @@ class SubmissionResourceById(Resource):
         try:
             submission_schema = SubmissionSchema()
             dict_data = submission_schema.load(submission_json)
-            SubmissionService.update_submission(
+            response = SubmissionService.update_submission(
                 form_id=formId, _id=_id, data=dict_data
             )
             return (
-                f"Updated {_id} successfully",
+                response,
                 HTTPStatus.OK,
             )
         except BaseException as submission_err:  # pylint: disable=broad-except
