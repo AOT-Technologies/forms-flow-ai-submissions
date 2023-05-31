@@ -30,6 +30,7 @@ class SubmissionService:
         submission = Submission.find_by_id(form_id=form_id, _id=_id)
         if submission:
             submission.update(data)
+            return submission
         else:
             raise BusinessException("Invalid submission", HTTPStatus.BAD_REQUEST)
 
@@ -42,6 +43,7 @@ class SubmissionService:
         
         if submission:
             submission = submission.patch(data=result)
+            return submission
         else:
             raise BusinessException("Invalid submission", HTTPStatus.BAD_REQUEST)
 
