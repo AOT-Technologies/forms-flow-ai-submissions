@@ -2,14 +2,18 @@
 
 
 from __future__ import annotations
-from email.policy import default
+
 import json
+import uuid
+from email.policy import default
+
+from sqlalchemy.dialects.postgresql import JSON, UUID
 from sqlalchemy.orm.attributes import flag_modified
+
 from .audit_mixin import AuditDateTimeMixin, AuditUserMixin
 from .base_model import BaseModel
 from .db import db
-from sqlalchemy.dialects.postgresql import JSON, UUID
-import uuid
+
 
 class Submission(BaseModel, db.Model, AuditDateTimeMixin):
     """This class manages submission information."""
@@ -29,8 +33,7 @@ class Submission(BaseModel, db.Model, AuditDateTimeMixin):
             submission.form_id = submission_info["form_id"]
             submission.save()
             return submission
-        return None
-    
+        return None    
 
     def update(self, submission_info: dict):
         """Update submission."""

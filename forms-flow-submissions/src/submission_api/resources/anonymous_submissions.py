@@ -1,19 +1,15 @@
 """API endpoints for managing submission resource."""
 
-from http import HTTPStatus
 import json
 import string
+from http import HTTPStatus
+
 from flask import current_app, g, request
 from flask_restx import Namespace, Resource
 
-from submission_api.schemas import (
-    SubmissionSchema
-)
+from submission_api.schemas import SubmissionSchema
 from submission_api.services import SubmissionService
-from submission_api.utils import (
-    cors_preflight,
-    profiletime,
-)
+from submission_api.utils import cors_preflight, profiletime
 
 API = Namespace("Public", description="Public api endpoints")
 

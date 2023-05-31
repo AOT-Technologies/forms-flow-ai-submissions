@@ -8,10 +8,10 @@ from .constants import (
     CORS_ORIGINS,
     DESIGNER_GROUP,
     FILTER_MAPS,
-    SUBMISSION_API_CORS_ORIGINS,
     KEYCLOAK_DASHBOARD_BASE_GROUP,
     NEW_APPLICATION_STATUS,
     REVIEWER_GROUP,
+    SUBMISSION_API_CORS_ORIGINS,
 )
 from .enums import ApplicationSortingParameters
 from .format import CustomFormatter

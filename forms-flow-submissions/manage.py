@@ -2,13 +2,13 @@
 
 import logging
 
+from flask.cli import FlaskGroup
 from flask_migrate import Migrate
 
 # models included so that migrate can build the database migrations
 from submission_api import models  # noqa: F401 # pylint: disable=unused-import
 from submission_api import create_app
 from submission_api.models import db
-from flask.cli import FlaskGroup
 
 APP = create_app()
 cli = FlaskGroup(APP)

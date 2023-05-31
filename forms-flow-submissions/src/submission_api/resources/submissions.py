@@ -1,15 +1,14 @@
 """API endpoints for managing submission resource."""
 
-from http import HTTPStatus
 import json
 import string
+from http import HTTPStatus
+
 from flask import current_app, g, request
 from flask_restx import Namespace, Resource
 
 from submission_api.exceptions import BusinessException
-from submission_api.schemas import (
-    SubmissionSchema
-)
+from submission_api.schemas import SubmissionSchema
 from submission_api.services import SubmissionService
 from submission_api.utils import (
     REVIEWER_GROUP,
@@ -20,6 +19,7 @@ from submission_api.utils import (
 
 API = Namespace("Submission", description="Submission")
 
+submission_schema = SubmissionSchema()
 @cors_preflight("POST, GET, OPTIONS")
 @API.route("form/<string:formId>/submission", methods=["POST", "GET", "OPTIONS"])
 class SubmissionResource(Resource):
@@ -30,9 +30,9 @@ class SubmissionResource(Resource):
     @profiletime
     def get(formId: string):
         try:
-            submission = SubmissionService.get_all_submission(form_id=formId)
+            response = SubmissionService.get_all_submission(form_id=formId)
             return (
-                submission,HTTPStatus.OK
+                response,HTTPStatus.OK
             )
 
         except BaseException as submission_err:  # pylint: disable=broad-except
@@ -53,7 +53,6 @@ class SubmissionResource(Resource):
         submission_json = request.get_json()
         submission_json['form'] = formId
         try:
-            submission_schema = SubmissionSchema()
             dict_data = submission_schema.load(submission_json)
             submission = SubmissionService.create_submission(
                 data=dict_data
@@ -83,7 +82,9 @@ class SubmissionResourceById(Resource):
     def get(formId: string, _id: str):
         """Get submission by id."""
         try:
-            return SubmissionService.get_submission(form_id=formId, _id=_id), HTTPStatus.OK
+            response = SubmissionService.get_submission(form_id=formId, _id=_id)
+            response = submission_schema.dump(response)
+            return response, HTTPStatus.OK
         except BusinessException:
             response, status = (
                 {
@@ -104,7 +105,6 @@ class SubmissionResourceById(Resource):
         """Update submission details"""
         submission_json = request.get_json()
         try:
-            submission_schema = SubmissionSchema()
             dict_data = submission_schema.load(submission_json)
             submission = SubmissionService.update_submission(
                 form_id=formId, _id=_id, data=dict_data
@@ -132,7 +132,6 @@ class SubmissionResourceById(Resource):
         """Patch submission details"""
         submission_json = request.get_json()
         try:
-            submission_schema = SubmissionSchema()
             dict_data = submission_schema.load(submission_json)
             submission = SubmissionService.patch_submission(
                 form_id=formId, _id=_id, data=dict_data
