@@ -7,11 +7,11 @@ from flask_jwt_oidc import AuthError
 from flask_restx import Api
 
 from submission_api.exceptions import BusinessException
-
+from submission_api.resources.anonymous_submissions import (
+    API as ANONYMOUS_SUBMISSION_API,
+)
 from submission_api.resources.checkpoint import API as CHECKPOINT_API
 from submission_api.resources.submissions import API as SUBMISSION_API
-from submission_api.resources.anonymous_submissions import API as ANONYMOUS_SUBMISSION_API
-
 
 # This will add the Authorize button to the swagger docs
 # oauth2 & openid may not yet be supported by restplus
@@ -53,4 +53,3 @@ def handle_auth_error(error: AuthError):
 API.add_namespace(CHECKPOINT_API, path="/checkpoint")
 API.add_namespace(SUBMISSION_API, path="/")
 API.add_namespace(ANONYMOUS_SUBMISSION_API, path="/public")
-

@@ -1,7 +1,7 @@
 from alembic import context
 from flask import current_app
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import pool, engine_from_config
+from sqlalchemy import engine_from_config, pool
 
 # Get the existing instance of SQLAlchemy for the Flask app
 db = SQLAlchemy()

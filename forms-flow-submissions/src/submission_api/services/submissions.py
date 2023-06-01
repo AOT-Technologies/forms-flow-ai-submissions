@@ -1,7 +1,8 @@
 """This exposes submission service."""
 
-from http import HTTPStatus
 import json
+from http import HTTPStatus
+
 from submission_api.exceptions import BusinessException
 from submission_api.models import Submission
 from submission_api.schemas import SubmissionSchema
@@ -30,8 +31,7 @@ class SubmissionService:
         submission = Submission.find_by_id(form_id=form_id, _id=_id)
         if submission:
             submission.update(data)
-            submission_schema = SubmissionSchema()
-            return submission_schema.dump(submission)
+            return submission
         else:
             raise BusinessException("Invalid submission", HTTPStatus.BAD_REQUEST)
 
@@ -44,6 +44,7 @@ class SubmissionService:
         
         if submission:
             submission = submission.patch(data=result)
+            return submission
         else:
             raise BusinessException("Invalid submission", HTTPStatus.BAD_REQUEST)
 
@@ -53,9 +54,7 @@ class SubmissionService:
         """Get submission."""
         submission = Submission.find_by_id(form_id=form_id, _id=_id)
         if submission:
-           submission_schema = SubmissionSchema()
-           return submission_schema.dump(submission)
-
+           return submission
         raise BusinessException("Invalid submission", HTTPStatus.BAD_REQUEST)
 
 

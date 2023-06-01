@@ -1,7 +1,8 @@
 """Provides the WSGI entry point for running the application."""
 
-from submission_api import create_app
 import logging
+
+from submission_api import create_app
 
 application = create_app()  # pylint: disable=invalid-name
 logging.warn("Application created trying to run ???")

@@ -13,7 +13,6 @@ from .constants import ALLOW_ALL_ORIGINS
 from .enums import ApplicationSortingParameters
 
 
-
 def cors_preflight(methods: str = "GET"):
     """Render an option method on the class."""
 
